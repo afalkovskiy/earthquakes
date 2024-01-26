@@ -15,15 +15,15 @@ col1, col2, col3, col4 = st.columns(4)
 df = pd.read_csv("./data/database2.csv")
 with col1: shaw_all = st.checkbox('Shaw all earthquakes')
 with col2:    
-    minMag = st.slider("Select minimum magnitude", min_value=5.5, max_value=10., value=6.,  step=0.5)
-    # st.text("min magnitude = " + str(minMag))
-with col3:    
-    yr = st.slider("Select year range", min_value=0, max_value=5, value=1,  step=1)
+    yr = st.slider("Year range", min_value=0, max_value=5, value=1,  step=1)
     # st.text("year range = " + str(yr))
-with col4:
+with col3:
       # Year slider
     year = st.slider("Select year", min_value=1965, max_value=2016, value=1970,  step=1)
     # st.text("year = " + str(year))
+with col4:    
+    minMag = st.slider("Minimum magnitude", min_value=5.5, max_value=10., value=6.,  step=0.5)
+    # st.text("min magnitude = " + str(minMag))
 
 if shaw_all:
      txt1 = 'Earthquakes from 1965-2016'

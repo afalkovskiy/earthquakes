@@ -37,6 +37,8 @@ else:
         txt1 = 'Earthquakes from ' + str(min_yr) + "-" + str(max_yr)
     else:
             txt1 = 'Earthquakes ' + str(year)
+            min_yr = year
+            max_yr = year
 st.header(txt1)
 
 

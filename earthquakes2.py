@@ -58,7 +58,7 @@ df['mg'] = df['mg'].apply(lambda x: 10.*(x-5.5))
 # df_flt = df.loc[df['yr'] == year]
 df_flt = df.loc[(df['yr'] >= min_yr) & (df['yr'] <= max_yr) & (df['Magnitude'] > minMag)]
 
-df2 = df_flt[['lat','lon','Magnitude','mg']]
+df2 = df_flt[['Date','lat','lon','Magnitude','mg']]
 
 
 
@@ -66,7 +66,7 @@ colorArr=np.empty(len(df2.index))
 for el in colorArr:
      el='red'
 fig = px.scatter_mapbox(df2, lat="lat", lon="lon", title='Eathquakes', size='mg',
-                        hover_data=['lat','lon','Magnitude'], color_discrete_sequence=[" #915C83"],
+                        hover_data=['Date','lat','lon','Magnitude'], color_discrete_sequence=[" #915C83"],
                         # hover_data=['lat','lon','Magnitude'], color_discrete_sequence=["darkred"],
                         # hover_data=['lat','lon','Magnitude'], color_discrete_sequence=["darkviolet"],
                         center=dict(lon=-8.674051848928324, lat=39.63074957184749), size_max=15, zoom=0.)

@@ -70,7 +70,7 @@ fig = px.scatter_mapbox(df2, lat="lat", lon="lon", title='Eathquakes', size='mg'
                         hover_data=['Date','lat','lon','Magnitude'], color_discrete_sequence=[" #915C83"],
                         # hover_data=['lat','lon','Magnitude'], color_discrete_sequence=["darkred"],
                         # hover_data=['lat','lon','Magnitude'], color_discrete_sequence=["darkviolet"],
-                        center=dict(lon=-8.674051848928324, lat=39.63074957184749), size_max=20, zoom=0.1)
+                        center=dict(lon=-8.674051848928324, lat=39.63074957184749), size_max=20, zoom=0.)
 
 fig.update_layout(mapbox_style="open-street-map")
 # fig.update_layout(mapbox_style="carto-positron")

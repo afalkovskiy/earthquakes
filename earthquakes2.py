@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import plotly.express as px
+import math
 
 # st.subheader('Earthquake interactive map by A.F.')
 txt1 = 'Earthquake Interactive Map: A.Falkovskiy Jan 24 2024'
@@ -50,7 +51,7 @@ df['yr'] = df['yr'].apply(lambda x: x.split('/')[-1])
 df["yr"] = pd.to_numeric(df["yr"])
 df['mg'] = df['Magnitude']
 # df['mg'] = df['mg'].apply(lambda x: 2**x)
-df['mg'] = df['mg'].apply(lambda x: 10.*(x-5.5))
+df['mg'] = df['mg'].apply(lambda x: round(10.*(x-5.5)))
 
 # st.header('Data Header')
     

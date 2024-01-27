@@ -75,7 +75,7 @@ fig = px.scatter_mapbox(df2, lat="lat", lon="lon", title='Eathquakes', size='mg'
 fig.update_layout(mapbox_style="open-street-map")
 # fig.update_layout(mapbox_style="carto-positron")
 fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-fig.update_layout(autosize=True, hovermode='closest'}
+# fig.update_layout(autosize=True, hovermode='closest'}
 st.plotly_chart(fig)
 
 # st.map(df2)

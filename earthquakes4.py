@@ -5,7 +5,7 @@ import time
 import plotly.express as px
 
 # st.subheader('Earthquake interactive map by A.F.')
-txt1 = 'Earthquake Interactive Map: A.Falkovskiy Feb 11 2024'
+txt1 = 'Earthquake Interactive Map: A.Falkovskiy Feb 12 2024'
 st.subheader(txt1)
 col1, col2, col3, col4 = st.columns(4)
 
@@ -22,9 +22,15 @@ with col2:
     yr = st.slider("Select year range", min_value=0, max_value=5, value=1,  step=1)
     # st.text("year range = " + str(yr))
 with col3:    
-    minMag = st.slider("Select minimum magnitude", min_value=5.5, max_value=10., value=6.,  step=0.25)
+    # minMag = st.slider("Select minimum magnitude", min_value=5.5, max_value=10., value=6.,  step=0.25)
     # st.text("min magnitude = " + str(minMag))
-with col4: shaw_all = st.checkbox('Shaw all earthquakes')
+
+    minMaxM = st.slider('Select magnitude range', 5.5, 10.0, (6.0, 10.0), step=0.25)
+    minMag = minMaxM[0]
+    maxMag = minMaxM[1]
+    # st.write('Values:', minMag, maxMag)
+
+with col4: shaw_all = st.checkbox('All earthquakes')
 
 if shaw_all:
      txt1 = 'Earthquakes from 1965-2016'
@@ -38,7 +44,7 @@ else:
         txt1 = 'Earthquakes from ' + str(min_yr) + " - " + str(max_yr)
     else:
             txt1 = 'Earthquakes ' + str(year)
-st.header(txt1)
+st.subheader(txt1)
 
 
 
@@ -49,13 +55,13 @@ df['yr'] = df['yr'].apply(lambda x: x.split('/')[-1])
 df["yr"] = pd.to_numeric(df["yr"])
 df['mg'] = df['Magnitude']
 # df['mg'] = df['mg'].apply(lambda x: 2**x)
-df['mg'] = df['mg'].apply(lambda x: 10.*(x-5.5))
+df['mg'] = df['mg'].apply(lambda x: round(10.*(x-5.5),1))
 
 # st.header('Data Header')
     
 
 # df_flt = df.loc[df['yr'] == year]
-df_flt = df.loc[(df['yr'] >= min_yr) & (df['yr'] <= max_yr) & (df['Magnitude'] > minMag)]
+df_flt = df.loc[(df['yr'] >= min_yr) & (df['yr'] <= max_yr) & (df['Magnitude'] >= minMag) & (df['Magnitude'] < maxMag)]
 
 df2 = df_flt[['lat','lon','Magnitude','Date','mg']]
 
@@ -77,7 +83,7 @@ st.plotly_chart(fig)
 
 # st.map(df2)
 
-txt2 = 'Earthquakes worldwide per year, M ≥ ' + str(minMag)
+txt2 = 'Earthquakes worldwide per year: ' + str(minMag) + ' ≤ M ≤ ' + str(maxMag)
 st.subheader(txt2)
 # st.write(df_flt.head())
 
@@ -92,7 +98,7 @@ m8 = np.zeros(52)
 for index, row in df.iterrows():
     # print(row['lat'], row['lon'], 'yr = ', row['yr'])
     yr1 = row['yr']
-    if row['Magnitude'] >= minMag:
+    if row['Magnitude'] >= minMag and row['Magnitude'] <= maxMag:
         #  print('Mag > 8', yr1)
          m8[yr1-1965] +=1
     # else:
@@ -104,11 +110,11 @@ for index, row in df.iterrows():
 
 chart_data = pd.DataFrame(
 #    {"col1": list(range(1965, 2017, 1)), "col2": np.random.randn(52), "col3": np.random.randn(52)}
-   {"col1": list(range(1965, 2017, 1)), "col2": m7, "col3": m8}
+   {"year": list(range(1965, 2017, 1)),"number of earthquakes": m8}
 )
 
 st.bar_chart(
-   chart_data, x="col1", y=["col2", "col3"], color=["#0000FF", "#FF0000"]  # Optional
+   chart_data, x="year", y=["number of earthquakes"], color=["#FF0000"]  # Optional
 )
 
 st.subheader('Data Header')

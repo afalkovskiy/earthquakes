@@ -5,7 +5,7 @@ import time
 import plotly.express as px
 
 # st.subheader('Earthquake interactive map by A.F.')
-txt1 = 'Earthquake Interactive Map: A.Falkovskiy Feb 18 2024'
+txt1 = 'Earthquake Interactive Map: A.Falkovskiy Feb 20 2024'
 st.subheader(txt1)
 col1, col2, col3, col4 = st.columns(4)
 
